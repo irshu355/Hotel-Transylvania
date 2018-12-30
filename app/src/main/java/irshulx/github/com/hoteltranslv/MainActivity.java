@@ -54,22 +54,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(adults + children + infants > MAX_HEADCOUNT) {
-            showError("SORRY, booking exceeds maximum guests");
+            showError("Booking exceeds maximum guests");
             return;
         }
 
         if(adults + children > 7){
-            showError("SORRY, booking exceeds maximum adult children");
+            showError("Booking exceeds maximum adult + children");
             return;
         }
 
         if(children > MAX_ROOMS_PER_BOOKKING * MAX_CHILDREN){
-            showError("SORRY, booking exceeds maximum  children");
+            showError("Sorry, booking exceeds maximum  children");
             return;
         }
 
         if(infants > MAX_ROOMS_PER_BOOKKING * MAX_INFANTS){
-            showError("SORRY, booking exceeds maximum  infants");
+            showError("Sorry, booking exceeds maximum  infants");
             return;
         }
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(infants + children > 1 && adults ==0){
-            showError("SORRY, we need atleast an adult for supervision");
+            showError("Sorry, we need atleast an adult for supervision");
             return;
         }
 
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(roomDistribution.size() > adults){
-            showError("SORRY, we need more adults as we can't let the kids alone in rooms");
+            showError("Sorry, we need more adults as we can't let the kids alone in rooms");
             return;
         }
 
@@ -234,7 +234,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showError(String message){
-        Snackbar.make(findViewById(android.R.id.content), message, 3000).show();
+        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), message, 3000);
+        snackbar.setAction("Dismiss", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                snackbar.dismiss();
+            }
+        });
+
+        snackbar.show();
     }
 
     private int getText(TextView textView){

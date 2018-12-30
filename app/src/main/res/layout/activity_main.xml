@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="HELLO!\nTIMOTHY"
+            android:text="HELLO\nMURRAY!"
             android:textAllCaps="true"
             android:textColor="#000000"
             android:textSize="30sp"
@@ -337,6 +337,18 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:text="Created By Irshad, visit me at github.com/irshuLx"
+            android:textColor="#888888"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/lbl_room_1"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
 
 
     </android.support.constraint.ConstraintLayout>
