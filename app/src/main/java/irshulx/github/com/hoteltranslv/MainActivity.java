@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     TextView txtAdults, txtChildren, txtInfants, lblresult;
     List<TextView> lblRooms = new ArrayList<>();
     int[] roomBgs = {R.drawable.oval_room_1, R.drawable.oval_room_2, R.drawable.oval_room_3};
-
     private final int MAX_ROOMS_PER_BOOKKING = 3;
     private final int MAX_ADULTS = 3;
     private final int MAX_CHILDREN = 3;
@@ -48,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void calculateRoomsRequired(int adults, int children, int infants) {
         int counter = 0;
+
+        if(adults + children + infants == 0) {
+            showError("we need atleast a pax to proceed");
+            return;
+        }
 
         if(adults + children + infants > MAX_HEADCOUNT) {
             showError("SORRY, booking exceeds maximum guests");
@@ -102,11 +106,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         roomsNeeded = infants<=3 ? 1 : infants/(float) MAX_INFANTS;
         if(roomsNeeded % 1 != 0){
             roomsNeeded++;
         }
+
 
         if(roomDistribution.size() < (int) roomsNeeded){
             int diff = (int)roomsNeeded - roomDistribution.size();
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 roomDistribution.add(0);
             }
         }
+
 
         counter=0;
         while (infants > 0){
@@ -124,8 +129,6 @@ public class MainActivity extends AppCompatActivity {
             counter++;
             infants--;
         }
-
-
 
 
         if(roomDistribution.size() > adults){
@@ -161,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i<roomDistribution.size(); i++){
             lblRooms.get(i).setBackground(getResources().getDrawable(roomBgs[i]));
             lblRooms.get(i).setText(""+roomDistribution.get(i));
-            setAlpha(lblRooms.get(i),0.5f, 1.0f);
         }
     }
 
@@ -228,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
     private void setDefaults() {
         for(TextView textView: lblRooms){
             textView.setText("0");
-            setAlpha(textView,1.0f, 0.5f);
         }
     }
 
@@ -243,19 +244,5 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    private void setAlpha(View view,float from, float to){
-        float current = view.getAlpha();
-        if(view.getAlpha() == to) return;
-        AlphaAnimation animation1 = new AlphaAnimation(from, to);
-
-        animation1.setDuration(2000);
-        animation1.setStartOffset(50);
-
-        animation1.setFillAfter(true);
-
-        view.setVisibility(View.VISIBLE);
-
-        view.startAnimation(animation1);
-    }
 }
 
