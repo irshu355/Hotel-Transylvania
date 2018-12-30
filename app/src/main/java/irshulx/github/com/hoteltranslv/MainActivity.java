@@ -89,11 +89,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        for(int i = 0; i < MAX_ROOMS_PER_BOOKKING; i++){
-            if(children == 0) break;
-            roomDistribution.add(children > MAX_CHILDREN ? MAX_CHILDREN : children);
-            children -= roomDistribution.get(i);
+
+        float roomsNeeded = children<=3 ? 1 : children/3.0f;
+        if(roomsNeeded % 1 != 0){
+            roomsNeeded++;
         }
+
+        for(int i = 0; i < (int) roomsNeeded ; i++){
+            roomDistribution.add(0);
+        }
+
+
+        int l =0;
+        while (children > 0){
+            if(l>=roomDistribution.size()){
+                l=0;
+            }
+            roomDistribution.set(l, roomDistribution.get(l)+1);
+            l++;
+            children--;
+        }
+
 
 
         if(infants > 0) {
@@ -122,10 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(roomDistribution.size() < MAX_ROOMS_PER_BOOKKING){
             float adultPerRooms = adults/3.0f;
-            if(adultPerRooms > 3.0f){
-                lblresult.setText("SORRY, too many adults");
-                return;
-            }else{
                 if(adultPerRooms % 1 != 0){
                     adultPerRooms++;
                 }
@@ -133,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 for(int i = 0; i< diff ;i++){
                     roomDistribution.add(0);
                 }
-            }
         }
 
 
