@@ -112,22 +112,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(infants > 0) {
-            for (int i = 0; i < MAX_ROOMS_PER_BOOKKING; i++) {
+        roomsNeeded = infants<=3 ? 1 : infants/3.0f;
+        if(roomsNeeded % 1 != 0){
+            roomsNeeded++;
+        }
 
-                if(infants ==0) break;
-
-                if(i>=roomDistribution.size()){
-                    roomDistribution.add(infants > MAX_INFANTS ?MAX_INFANTS : infants);
-                    infants -= roomDistribution.get(i);
-                    continue;
-                }
-
-                int needed = infants > MAX_INFANTS ? MAX_INFANTS : infants;
-                roomDistribution.set(i, roomDistribution.get(i)+ needed);
-                infants-=needed;
+        if(roomDistribution.size() < (int) roomsNeeded){
+            int diff = (int)roomsNeeded - roomDistribution.size();
+            for(int i = 0; i < diff ; i++){
+                roomDistribution.add(0);
             }
         }
+
+        l=0;
+        while (infants > 0){
+            if(l>=roomDistribution.size()){
+                l=0;
+            }
+            roomDistribution.set(l, roomDistribution.get(l)+1);
+            l++;
+            infants--;
+        }
+
+
 
 
         if(roomDistribution.size() > adults){
@@ -158,6 +165,15 @@ public class MainActivity extends AppCompatActivity {
             adults--;
             j++;
         }
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("distribution: ");
+
+        for(int i =0 ;i < roomDistribution.size() ; i++){
+            builder.append("room "+ (i+1) +" : " + roomDistribution.get(i)+",\n");
+        }
+
+        lblresult.setText(builder);
 
 
 
